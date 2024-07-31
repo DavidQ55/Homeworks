@@ -1,3 +1,5 @@
+//Función regular y de flecha para saber si un número es par o impar
+
 function regular(x) {
     if (x % 2 === 0) {
       console.log(x + " es par");
