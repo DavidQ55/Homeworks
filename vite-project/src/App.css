@@ -34,11 +34,10 @@ body {
 .botones {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px; /* Espacio entre los botones */
+  gap: 10px;
 }
 
 button {
-  background-color: #4CAF50; /* Color de fondo de los botones */
   color: white;
   border: none;
   border-radius: 5px;
