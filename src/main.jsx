@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 //import FirstApp from './FirstApp'
 import './index.css'
 import "./App.css"
-import {Father} from './components/Challenge 8 - Father'
+import { MultipleCustomHooks } from './components/Challenge7';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Father/>
+    <MultipleCustomHooks/>
   </React.StrictMode>,
 )
