@@ -1,11 +1,11 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import GifGrid3 from './components/Challenge5'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+//import FirstApp from './FirstApp'
 import './index.css'
-import './App.css'
-
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <GifGrid3/>
-  </StrictMode>,
+import "./App.css"
+import {Father} from './components/Challenge 8 - Father'
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <Father/>
+  </React.StrictMode>,
 )
