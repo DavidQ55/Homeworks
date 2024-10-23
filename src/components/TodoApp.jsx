@@ -1,25 +1,26 @@
-import { useState } from "react";
+import { useTodo } from "../hooks/useTodo";
 import { TodoList } from "./TodoList";
 import { TodoAdd } from "./TodoAdd";
 
 export const TodoApp = () => {
-    const [todos, setTodos] = useState([]);
-
-    const handleNewTodo = (newTodo) => {
-        setTodos([newTodo, ...todos]); // Agregar nuevo todo
-    };
-
-    const handleDeleteTodo = (id) => {
-        setTodos(todos.filter(todo => todo.id !== id)); // Eliminar todo
-    };
+    const {
+        todos,
+        handleNewTodo,
+        handleDeleteTodo,
+        handleToggleTodo,
+        countTodos,
+        countPendingTodos
+    } = useTodo();
 
     return (
         <>
             <h1>TodoApp</h1>
+            <p>Total: {countTodos()}</p>
+            <p>Pendientes: {countPendingTodos()}</p>
             <hr />
 
             <TodoAdd onNewTodo={handleNewTodo} />
-            <TodoList todos={todos} onDelete={handleDeleteTodo} />
+            <TodoList todos={todos} onDelete={handleDeleteTodo} onToggle={handleToggleTodo}/>
         </>
     );
 };
