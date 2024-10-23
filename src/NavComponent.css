@@ -1,0 +1,22 @@
+/* NavComponent.css */
+.navbar {
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #f6f7f9;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #0056b3;
+}
+
+.active {
+    color: #eb0a0a; /* Cambiar el color del enlace activo */
+    text-decoration: underline;
+}
