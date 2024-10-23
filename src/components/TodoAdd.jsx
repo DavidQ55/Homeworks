@@ -1,16 +1,21 @@
+import {useState} from "react";
+
 // eslint-disable-next-line react/prop-types
 export const TodoAdd = ({ onNewTodo}) => {
+    const [description, setDescription] = useState("");
     
     const onFormSubmit = (event) => {
         event.preventDefault()
+        if(description.trim().length === 0) return;
 
         const newTodo = {
             id: new Date().getTime(),
-            description: 'Hacer el proyecto',
+            description: description,
             donde: false
         }
 
         onNewTodo( newTodo )
+        setDescription("");
     }
 
     return (
@@ -19,6 +24,8 @@ export const TodoAdd = ({ onNewTodo}) => {
                 type ="text"
                 placeholder="Tarea"
                 className="form-control"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
             />
             <button
                 type="submit"

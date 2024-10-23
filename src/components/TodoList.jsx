@@ -1,13 +1,13 @@
 import { TodoItem } from "./TodoItem";
 
 // eslint-disable-next-line react/prop-types
-export const TodoList = ({todos = [] }) => {
+export const TodoList = ({todos = [], onDelete }) => {
     return (
         <ul className="list-group">
             {
-                todos.map((todo, key) => {
+                todos.map((todo) => {
                     return (
-                        <TodoItem key={key} todo={todo} />
+                        <TodoItem key={todo.id} todo={todo} onDelete={onDelete}/>
                     )
                 })
             }

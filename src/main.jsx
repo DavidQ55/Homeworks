@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css'
 import "./App.css"
 
-import { TodoAdd } from './components/TodoAdd';
+import { TodoApp } from './components/TodoApp';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <TodoAdd/>
+    <TodoApp/>
   </React.StrictMode>,
 )
