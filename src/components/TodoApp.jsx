@@ -1,18 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { TodoList } from "./TodoList";
 import { TodoAdd } from "./TodoAdd";
-import { addTodo, deleteTodo} from "../store/todosSlice";
+import { addTodo, deleteTodo } from "../store/todoActions";
 
-export const TodoApp = () => {
-    const todos = useSelector((state) => state.todos);
-    const dispatch = useDispatch();
-
+// eslint-disable-next-line react/prop-types
+export const TodoApp = ({ todos, addTodo, deleteTodo }) => {
     const handleNewTodo = (newTodo) => {
-        dispatch(addTodo(newTodo));
+        addTodo(newTodo);
     };
 
     const handleDeleteTodo = (id) => {
-        dispatch(deleteTodo(id));
+        deleteTodo(id);
     };
 
     return (
@@ -25,3 +23,15 @@ export const TodoApp = () => {
         </>
     );
 };
+
+const mapState = (state) => ({
+    todos: state.todos,
+});
+
+const mapDispatch = {
+    addTodo,
+    deleteTodo
+};
+
+// eslint-disable-next-line react-refresh/only-export-components
+export default connect(mapState, mapDispatch)(TodoApp);
