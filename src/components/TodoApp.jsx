@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { TodoList } from "./TodoList";
 import { TodoAdd } from "./TodoAdd";
+import { addTodo, deleteTodo} from "../store/todosSlice";
 
 export const TodoApp = () => {
-    const [todos, setTodos] = useState([]);
+    const todos = useSelector((state) => state.todos);
+    const dispatch = useDispatch();
 
     const handleNewTodo = (newTodo) => {
-        setTodos([newTodo, ...todos]); // Agregar nuevo todo
+        dispatch(addTodo(newTodo));
     };
 
     const handleDeleteTodo = (id) => {
-        setTodos(todos.filter(todo => todo.id !== id)); // Eliminar todo
+        dispatch(deleteTodo(id));
     };
 
     return (

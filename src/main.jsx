@@ -1,12 +1,15 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-//import FirstApp from './FirstApp'
-import './index.css'
-import "./App.css"
+import { Provider } from 'react-redux';
+import store from './store/store';
 
+import './index.css';
+import './App.css';
 import { TodoApp } from './components/TodoApp';
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <TodoApp/>
-  </React.StrictMode>,
-)
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
+  <Provider store={store}>
+    <TodoApp />
+  </Provider>
+);
