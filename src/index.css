@@ -35,6 +35,12 @@ h1 {
   line-height: 1.1;
 }
 
+h2 {
+  padding: 2rem;
+}
+
+
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -47,7 +53,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #bd0707;
 }
 button:focus,
 button:focus-visible {
@@ -60,7 +66,7 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #bb1414;
   }
   button {
     background-color: #f9f9f9;

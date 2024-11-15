@@ -1,12 +1,17 @@
 .navbar {
-    display:flex;
+    display: flex;
     justify-content: space-around;
     padding: 1rem;
     position: sticky;
-    display: flex;
-    gap: 1rem;
     top: 0;
     z-index: 1000;
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
 }
 
 .nav-link {
@@ -14,6 +19,7 @@
     color: #f6f7f9;
     font-weight: bold;
     transition: color 0.3s ease;
+    margin: 0 1rem;
 }
 
 .nav-link:hover {
@@ -26,13 +32,11 @@
 }
 
 .logout-button {
-    background-color: #dc3545;
     color: white;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 1rem;
     transition: background-color 0.3s ease;
 }
 

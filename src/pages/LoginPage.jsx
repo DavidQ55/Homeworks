@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginWithEmail, loginWithGoogle, logout } from "../Store/slices/authSlice";
+import { loginWithEmail, loginWithGoogle } from "../Store/slices/authSlice";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -19,51 +19,47 @@ const LoginPage = () => {
         dispatch(loginWithGoogle());
     };
 
+    if (isAuthenticated) {
+        // eslint-disable-next-line react/jsx-no-undef
+        return <Navigate to="/gallery" />;
+    }
+
     return (
         <div>
-            {isAuthenticated ? (
-                <>
-                    <p>Bienvenido, {user?.displayName || user?.email}</p>
-                    <button onClick={() => dispatch(logout())}>Logout</button>
-                </>
-            ) : (
-                <>
-                    <h2>Login</h2>
-                    <form>
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            value={loginEmail}
-                            onChange={(e) => setLoginEmail(e.target.value)}
-                        />
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            value={loginPassword}
-                            onChange={(e) => setLoginPassword(e.target.value)}
-                        />
-                        <button
-                            type="button"
-                            onClick={handleLoginWithEmail}
-                            disabled={status === "loading" || isAuthenticated}
-                        >
-                            Login with Email
-                        </button>
-                    </form>
-                    <button
-                        type="button"
-                        onClick={handleLoginWithGoogle}
-                        disabled={status === "loading" || isAuthenticated}
-                    >
-                        Login with Google
-                    </button>
+            <h2>Login</h2>
+            <form>
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={loginEmail}
+                    onChange={(e) => setLoginEmail(e.target.value)}
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                />
+                <button
+                    type="button"
+                    onClick={handleLoginWithEmail}
+                    disabled={status === "loading" || isAuthenticated}
+                >
+                    Login with Email
+                </button>
+            </form>
+            <button
+                type="button"
+                onClick={handleLoginWithGoogle}
+                disabled={status === "loading" || isAuthenticated}
+            >
+                Login with Google
+            </button>
 
-                    <p>
-                        No tienes cuenta?{" "}
-                        <a href="/register">Regístrate aquí</a>
-                    </p>
-                </>
-            )}
+            <p>
+                No tienes cuenta?{" "}
+                <a href="/register">Regístrate aquí</a>
+            </p>
         </div>
     );
 };

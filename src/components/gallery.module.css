@@ -1,0 +1,11 @@
+.image-item {
+  width: 150px;
+  text-align: center;
+}
+
+.image-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+  

@@ -1,36 +1,48 @@
-import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../Store/slices/authSlice";
-import "../NavComponent.css"
+import { Link } from "react-router-dom";
+import styles from "./NavComponent.module.css";
 
 export const NavComponent = () => {
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.auth.user);
+    const { user } = useSelector((state) => state.auth);
+    const isAuthenticated = user !== null;
 
     return (
-        <nav className="navbar">
-            <NavLink
-                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-                to="/"
-            >
-                Home
-            </NavLink>
-            <NavLink
-                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-                to="about"
-            >
-                About
-            </NavLink>
-            {!user ? (
-                <NavLink
-                    className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-                    to="login"
-                >
-                    Login
-                </NavLink>
-            ) : (
-                <button onClick={() => dispatch(logout())}>Logout</button>
-            )}
+        <nav className={styles["navbar"]}>
+            <ul>
+                <li className={styles["nav-link"]}>
+                    <Link to="/">Home</Link>
+                </li>
+                <li className={styles["nav-link"]}>
+                    <Link to="/about">About</Link>
+                </li>
+                {!isAuthenticated && (
+                    <li className={styles["nav-link"]}>
+                        <Link to="/login">Login</Link>
+                    </li>
+                )}
+                {isAuthenticated && (
+                    <>
+                        <li className={styles["nav-link"]}>
+                            <Link to="/images">Subir Imágenes</Link>
+                        </li>
+                        <li className={styles["nav-link"]}>
+                            <Link to="/gallery">Galería</Link>
+                        </li>
+                    </>
+                )}
+                {isAuthenticated && (
+                    <li>
+                        <button
+                            className={styles["logout-button"]}
+                            onClick={() => dispatch(logout())}
+                        >
+                            Logout
+                        </button>
+                    </li>
+                )}
+            </ul>
         </nav>
     );
 };
