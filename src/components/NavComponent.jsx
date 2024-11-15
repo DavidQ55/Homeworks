@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../Store/slices/authSlice";
+import "../NavComponent.css"
 
 export const NavComponent = () => {
     const dispatch = useDispatch();

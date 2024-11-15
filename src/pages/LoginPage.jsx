@@ -1,43 +1,71 @@
+import { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginWithGoogle, loginWithEmail } from "../Store/slices/authSlice";
+import { loginWithEmail, loginWithGoogle, logout } from "../Store/slices/authSlice";
 
-export const LoginPage = () => {
+const LoginPage = () => {
     const dispatch = useDispatch();
-    const { status, error } = useSelector((state) => state.auth);
+    const { user, status } = useSelector((state) => state.auth);
 
-    const handleLoginWithGoogle = (e) => {
-        e.preventDefault();
-        dispatch(loginWithGoogle());
+    const [loginEmail, setLoginEmail] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
+
+    const isAuthenticated = useMemo(() => user !== null, [user]);
+
+    const handleLoginWithEmail = () => {
+        dispatch(loginWithEmail({ email: loginEmail, password: loginPassword }));
     };
 
-    const handleLoginWithEmail = (e) => {
-        e.preventDefault();
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        dispatch(loginWithEmail({ email, password }));
+    const handleLoginWithGoogle = () => {
+        dispatch(loginWithGoogle());
     };
 
     return (
         <div>
-            <h1>Login Page</h1>
-            <hr />
-            <form onSubmit={handleLoginWithEmail}>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input type="email" id="email" name="email" required />
-                </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input type="password" id="password" name="password" required />
-                </div>
-                <button type="submit" disabled={status === "loading"}>
-                    {status === "loading" ? "Logging in..." : "Login"}
-                </button>
-                <button onClick={handleLoginWithGoogle} disabled={status === "loading"}>
-                    {status === "loading" ? "Logging in..." : "Login with Google"}
-                </button>
-            </form>
-            {error && <p style={{ color: "red" }}>{error}</p>}
+            {isAuthenticated ? (
+                <>
+                    <p>Bienvenido, {user?.displayName || user?.email}</p>
+                    <button onClick={() => dispatch(logout())}>Logout</button>
+                </>
+            ) : (
+                <>
+                    <h2>Login</h2>
+                    <form>
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            value={loginEmail}
+                            onChange={(e) => setLoginEmail(e.target.value)}
+                        />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={loginPassword}
+                            onChange={(e) => setLoginPassword(e.target.value)}
+                        />
+                        <button
+                            type="button"
+                            onClick={handleLoginWithEmail}
+                            disabled={status === "loading" || isAuthenticated}
+                        >
+                            Login with Email
+                        </button>
+                    </form>
+                    <button
+                        type="button"
+                        onClick={handleLoginWithGoogle}
+                        disabled={status === "loading" || isAuthenticated}
+                    >
+                        Login with Google
+                    </button>
+
+                    <p>
+                        No tienes cuenta?{" "}
+                        <a href="/register">Regístrate aquí</a>
+                    </p>
+                </>
+            )}
         </div>
     );
 };
+
+export default LoginPage;

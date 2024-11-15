@@ -1,7 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { AboutPage } from './AboutPage';
+import { AboutPage }  from './AboutPage';
 import { HomePage } from './HomePage';
-import { LoginPage } from './LoginPage';
+import LoginPage  from './LoginPage';
+import RegisterPage from './RegisterPage';
 import { NavComponent } from '../components/NavComponent';
 
 export const MainApp = () => {
@@ -12,6 +13,7 @@ export const MainApp = () => {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="login" element={<LoginPage />} />
+                <Route path="register" element={<RegisterPage />} />
                 <Route path="about" element={<AboutPage />} />
                 <Route path="/*" element={<Navigate to="about" />} />
             </Routes>

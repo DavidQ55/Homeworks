@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Firebase/Firebase.js";
 
 export const loginWithEmail = createAsyncThunk(
@@ -18,17 +18,16 @@ export const loginWithEmail = createAsyncThunk(
     }
 );
 
-
 export const loginWithGoogle = createAsyncThunk(
     "auth/loginWithGoogle",
     async (_, { rejectWithValue }) => {
         try {
             const provider = new GoogleAuthProvider();
             const result = await signInWithPopup(auth, provider);
-            return{
+            return {
                 uid: result.user.uid,
                 email: result.user.email,
-                displayName: result.user.email
+                displayName: result.user.email,
             };
         } catch (error) {
             return rejectWithValue(error.message);
@@ -39,6 +38,22 @@ export const loginWithGoogle = createAsyncThunk(
 export const logout = createAsyncThunk("auth/logout", async () => {
     await signOut(auth);
 });
+
+export const registerWithEmail = createAsyncThunk(
+    "auth/registerWithEmail",
+    async ({ email, password }, { rejectWithValue }) => {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            return {
+                uid: userCredential.user.uid,
+                email: userCredential.user.email,
+                displayName: userCredential.user.displayName,
+            };
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
 
 const authSlice = createSlice({
     name: "auth",
@@ -67,6 +82,18 @@ const authSlice = createSlice({
                 state.status = "succeeded";
             })
             .addCase(loginWithGoogle.rejected, (state, action) => {
+                state.error = action.payload;
+                state.status = "failed";
+            })
+            .addCase(registerWithEmail.pending, (state) => {
+                state.status = "loading";
+                state.error = null;
+            })
+            .addCase(registerWithEmail.fulfilled, (state, action) => {
+                state.user = action.payload;
+                state.status = "succeeded";
+            })
+            .addCase(registerWithEmail.rejected, (state, action) => {
                 state.error = action.payload;
                 state.status = "failed";
             })
